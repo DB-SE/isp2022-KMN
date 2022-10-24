@@ -162,4 +162,40 @@ class GraphTests {
         System.out.println("");
 
     }
+    @Test
+    public void testDFSweighted() {
+
+        System.out.println("======DFS - weighted=====");
+
+        WeightedGraph wg = new WeightedGraph();
+        wg.addVertex();
+        wg.addVertex();
+        wg.addVertex();
+        wg.addVertex();
+
+        WeightedEdge edge = (WeightedEdge) wg.addEdge(0, 1);
+        edge.setWeight(3.14);
+        edge = (WeightedEdge) wg.addEdge(1, 3);
+        edge.setWeight(-1);
+        edge = (WeightedEdge) wg.addEdge(2, 0);
+        edge.setWeight(10.10);
+
+
+
+        System.out.print("DFS- Label(0): ");
+        wg.DFS(0);
+        System.out.println("");
+
+        System.out.print("DFS- Label(1): ");
+        wg.DFS(1);
+        System.out.println("");
+
+        System.out.print("DFS- Label(3): ");
+        wg.DFS(3);
+
+
+        System.out.println("");
+        System.out.println("");
+
+    }
 }
