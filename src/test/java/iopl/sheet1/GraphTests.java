@@ -78,7 +78,7 @@ class GraphTests {
         g.addVertex();
         g.addVertex();
         g.addVertex();
-        g.addVertex(); //8
+        g.addVertex(); //8 vertexes
 
         g.addEdge(4, 1);
         g.addEdge(0, 2);

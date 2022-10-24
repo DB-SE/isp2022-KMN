@@ -92,7 +92,7 @@ class Graph {
     }
 
     public void DFS(int startId) {
-        boolean visited[] = new boolean[vertexCount]; //mark every vertex as unvisited
+        boolean visited[] = new boolean[vertexCount]; //create list of all visited vertexes, default false
 
 
         DFSrecursive(startId, visited);
@@ -103,34 +103,22 @@ class Graph {
     }
 
     private void DFSrecursive(int startId, boolean visited[]) {
-        visited[startId] = true; //mark startpoint
+        visited[startId] = true; //mark vertex
 
 
-        for (Vertex v: vertices
+        for (Vertex v: vertices //find vertex in list of vertexes (needed for label)
              ) {
             if(v.getId()==startId){
                 System.out.print(v+" ");
 
             }
-
-
         }
-       // System.out.print(startId + " ");
 
 
 
-        for (Edge e : edges
+        for (Edge e : edges //check all egdes for current vertex; if found and other vertex not in list of visited -> recursion with that vertex
         ) {
             Vertex[] currentVertices = e.getVertices();
-            /*//System.out.println(e);
-            System.out.println(Arrays.toString(visited));
-            System.out.println("vertices" + this.vertices);
-
-            System.out.println(Arrays.toString(currentVertices));
-            System.out.println("starter" + currentVertices[0]);
-            System.out.println(startId);
-
-             */
 
             if (currentVertices[0].getId() == startId) {
                 if (!visited[currentVertices[1].getId()]) {
