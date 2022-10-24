@@ -70,6 +70,11 @@ class GraphTests {
 
         System.out.println("======DFS=====");
 
+        Graph none = new Graph();
+
+        Graph one = new Graph();
+        one.addVertex();
+
         Graph g = new Graph();
         g.addVertex();
         g.addVertex();
@@ -102,6 +107,10 @@ class GraphTests {
 
         System.out.print("DFS(7): ");
         g.DFS(7);
+
+        none.DFS(0);
+
+        one.DFS(1);
 
 
         System.out.println("");

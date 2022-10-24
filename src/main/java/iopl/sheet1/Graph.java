@@ -92,6 +92,16 @@ class Graph {
     }
 
     public void DFS(int startId) {
+        if (this.vertexCount==0){  //check graph empty
+            System.out.println( "\n" + "Graph needs at least 1 Vertex to perform DFS!");
+            return;
+        }
+
+        if (startId>=this.vertexCount){  //check graphindex out of bound
+            System.out.println("\n" + "The Vertex-ID (" + startId + ") needs to be lower than the number of Vertices (" + this.vertexCount + ")!");
+            return;
+        }
+
         boolean visited[] = new boolean[vertexCount]; //create list of all visited vertexes, default false
 
 
@@ -103,6 +113,8 @@ class Graph {
     }
 
     private void DFSrecursive(int startId, boolean visited[]) {
+
+
         visited[startId] = true; //mark vertex
 
 
