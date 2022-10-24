@@ -207,4 +207,30 @@ class GraphTests {
         System.out.println("");
 
     }
+    
+    @Test
+    public void testMST() {
+        System.out.println("====== MST =====");
+
+        WeightedGraph wg = new WeightedGraph();
+        wg.addVertex();
+        wg.addVertex();
+        wg.addVertex();
+        wg.addVertex();
+
+        WeightedEdge edge = (WeightedEdge) wg.addEdge(0, 1);
+        edge.setWeight(1);
+        edge = (WeightedEdge) wg.addEdge(1, 2);
+        edge.setWeight(2);
+        edge = (WeightedEdge) wg.addEdge(2, 3);
+        edge.setWeight(3);
+        edge = (WeightedEdge) wg.addEdge(3, 0);
+        edge.setWeight(5);
+        edge = (WeightedEdge) wg.addEdge(0, 2);
+        edge.setWeight(10);
+        edge = (WeightedEdge) wg.addEdge(3, 1);
+        edge.setWeight(20);
+
+        System.out.println(wg);
+    }
 }

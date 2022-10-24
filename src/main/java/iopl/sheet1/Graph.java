@@ -161,6 +161,19 @@ class WeightedGraph extends Graph {
 
        return new WeightedEdge(v1, v2, WeightedGraph.DEFAULT_WEIGHT);
     }
+    
+    /* Returns one possible minimum spanning tree of the current graph, doesn't create copy!
+     * All vertices will remain in the same order, edges will be selected to match the following criteria
+     * - all vertices are connected
+     * - no cycles (-> subset of connected edges where only the start and the end vertex is the same)
+     * - minimum possible sum of weights
+     */
+    public WeightedGraph getAMinimumSpanningTree() {
+    	
+    	
+    	WeightedGraph g = new WeightedGraph();
+    	return g;
+    }
 }
 
 
