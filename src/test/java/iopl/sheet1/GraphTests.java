@@ -27,7 +27,7 @@ class GraphTests {
     @Test
     public void testLabeledGraph() {
 
-        System.out.println("======LABELED GRAPH=====");
+        System.out.println("======LABELED GRAP=====");
 
         LabeledGraph<String> stringGraph = new LabeledGraph<>();
 
@@ -98,19 +98,19 @@ class GraphTests {
 
 
         System.out.print("DFS(0): ");
-        g.DFS(0);
+        g.DFS(0, true);
         System.out.println("");
 
         System.out.print("DFS(4): ");
-        g.DFS(4);
+        g.DFS(4, true);
         System.out.println("");
 
         System.out.print("DFS(7): ");
-        g.DFS(7);
+        g.DFS(7, true);
 
-        none.DFS(0);
+        none.DFS(0, true);
 
-        one.DFS(1);
+        one.DFS(1, true);
 
 
         System.out.println("");
@@ -156,15 +156,15 @@ class GraphTests {
 
 
         System.out.print("DFS- Label(0): ");
-        stringGraph.DFS(0);
+        stringGraph.DFS(0, true);
         System.out.println("");
 
         System.out.print("DFS- Label(4): ");
-        stringGraph.DFS(4);
+        stringGraph.DFS(4, true);
         System.out.println("");
 
         System.out.print("DFS- Label(7): ");
-        stringGraph.DFS(7);
+        stringGraph.DFS(7, true);
 
 
         System.out.println("");
@@ -192,15 +192,15 @@ class GraphTests {
 
 
         System.out.print("DFS- Label(0): ");
-        wg.DFS(0);
+        wg.DFS(0, true);
         System.out.println("");
 
         System.out.print("DFS- Label(1): ");
-        wg.DFS(1);
+        wg.DFS(1, true);
         System.out.println("");
 
         System.out.print("DFS- Label(3): ");
-        wg.DFS(3);
+        wg.DFS(3, true);
 
 
         System.out.println("");
@@ -231,6 +231,7 @@ class GraphTests {
         edge = (WeightedEdge) wg.addEdge(3, 1);
         edge.setWeight(20);
 
-        System.out.println(wg);
+        var mst = wg.getAMinimumSpanningTree();
+        System.out.println(mst.getSumWeight());
     }
 }

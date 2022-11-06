@@ -19,6 +19,12 @@ class Graph {
     protected final List<Edge> edges = new ArrayList<>();
     protected final List<Vertex> vertices = new ArrayList<>();
 
+    Graph() {}
+    Graph(List<Edge> e, List<Vertex> v) {
+    	this.edges.addAll(e);
+    	this.vertices.addAll(v);
+    	this.vertexCount = this.vertices.size();
+    }
 
     /**
      * @return A new vertex with an id already assigned.
@@ -92,46 +98,72 @@ class Graph {
         return sb.toString();
     }
 
-    public void DFS(Vertex startVertex){
-        DFS(startVertex.getId());
+    public boolean DFS(Vertex startVertex, boolean debugPrint){
+        return DFS(startVertex.getId(), debugPrint);
     }
 
-    public void DFS(int startId) {
+    public boolean DFS(int startId, boolean debugPrint) {
         if (this.vertexCount==0){  //check graph empty
+        	if (debugPrint) {
             System.out.println( "\n" + "Graph needs at least 1 Vertex to perform DFS!");
-            return;
+        	}
+            return false;
         }
 
         if (startId>=this.vertexCount){  //check graphindex out of bound
+        	if (debugPrint) {
             System.out.println("\n" + "The Vertex-ID (" + startId + ") needs to be lower than the number of Vertices (" + this.vertexCount + ")!");
-            return;
+        	}
+            return false;
         }
 
-        boolean visited[] = new boolean[vertexCount]; //create list of all visited vertexes, default false
+        boolean visited[] = new boolean[vertexCount]; //create list of all visited vertices, default false
 
 
-        DFSrecursive(startId, visited);
+        return DFSrecursive(startId, visited, debugPrint, startId);
     }
 
-    public void DFS(LabeledVertex startLabeled){
-        DFS(startLabeled.getId());
+    public boolean DFS(LabeledVertex startLabeled, boolean debugPrint){
+        return DFS(startLabeled.getId(), debugPrint);
     }
 
-    private void DFSrecursive(int startId, boolean visited[]) {
-
-
-        visited[startId] = true; //mark vertex
+    private boolean DFSrecursive(int startId, boolean visited[], boolean debugPrint, int previousId) {
 
 
         for (Vertex v: vertices //find vertex in list of vertexes (needed for label)
              ) {
-            if(v.getId()==startId){
-                System.out.print(v+" ");
+            if(v.getId()==startId && debugPrint){
+             
+            	System.out.print(v+" ");
 
             }
         }
+        
+        // mark beforehand so edges pointing towards the same vertex twice is registered as a loop
+        visited[startId] = true;
+        
+        // check if there is an edge from our current vertex to any of the visited ones (except the most recently visited)
+        // it so we detected a loop and must return true
+        for (int i = 0;i<visited.length;++i)
+        {
+        	if (!visited[i] || i == previousId)
+        	{
+        		continue;
+        	}
+        	for (Edge e : edges)
+        	{
+        		if ( (e.vertices[0].getId() == i && e.vertices[1].getId() == startId) ||
+        				(e.vertices[1].getId() == i && e.vertices[0].getId() == startId))
+        		{
+        			return true;
+        		}
+        	}
+        }
+        
+        
+        
 
-
+// TODO return value
 
         for (Edge e : edges //check all egdes for current vertex; if found and other vertex not in list of visited -> recursion with that vertex
         ) {
@@ -139,16 +171,17 @@ class Graph {
 
             if (currentVertices[0].getId() == startId) {
                 if (!visited[currentVertices[1].getId()]) {
-                    DFSrecursive(currentVertices[1].getId(), visited);
+                    return DFSrecursive(currentVertices[1].getId(), visited, debugPrint, startId);
                 }
             } else if (currentVertices[1].getId() == startId) {
                 if (!visited[currentVertices[0].getId()]) {
-                    DFSrecursive(currentVertices[0].getId(), visited);
+                    return DFSrecursive(currentVertices[0].getId(), visited, debugPrint, startId);
                 }
             }
 
 
         }
+        return false;
     }
 }
 
@@ -160,6 +193,11 @@ class WeightedGraph extends Graph {
 
         WeightedGraph.DEFAULT_WEIGHT = defaultWeight;
     }
+    
+    WeightedGraph(){};
+    //WeightedGraph(List<WeightedEdge> e, List<Vertex> v) {
+    //	super((List<Edge>)e, v);
+    //}
 
     @Override
     protected Edge createEdge(Vertex v1, Vertex v2) {
@@ -179,7 +217,7 @@ class WeightedGraph extends Graph {
     	
     	Stream<List<Edge>> combiStream = combinations(this.edges);
    
-   		var amount = combiStream.filter((array) -> {
+   		var mst = combiStream.filter((array) -> {
    			// criteria 1, all vertices connected
    			var foundVertices = new ArrayList<Vertex>();
    			for (Edge e : array)
@@ -197,23 +235,51 @@ class WeightedGraph extends Graph {
    			return foundVertices.size() == this.vertexCount;
    		}).filter((array) -> {
    			// criteria 2, no loops
-   			
-   			
-   			
-   			return true;
-   		}).count();
+   			var wg = convertEdgesToWG(array, this.vertices); // so inefficient....
+   			return !wg.DFS(0, false);
+   		}).min((a, b) -> {
+   			var wa = getWeightOfEdgeList(a);
+   			var wb = getWeightOfEdgeList(b);
+   			if (wa < wb)
+   			{
+   				return -1;
+   			}
+   			if (wa > wb) {
+   				return 1;
+   			}
+   			return 0;
+   		});
    		
-   		System.out.println(amount);
-   		
-    	List<WeightedGraph> candidates = new ArrayList<WeightedGraph>(); 
-    	
-    	WeightedGraph g = new WeightedGraph();
-    	return g;
+   	
+    	return convertEdgesToWG(mst.get(), this.vertices);
     }
     
+    private WeightedGraph convertEdgesToWG(List<Edge> e, List<Vertex> v)
+    {
+    	var wg = new WeightedGraph();
+    	wg.edges.addAll(e);
+    	wg.vertices.addAll(v);
+    	wg.vertexCount = wg.vertices.size();
+    	return wg;
+    }
+    
+    private double getWeightOfEdgeList(List<Edge> list)
+    {
+    	double weight = 0;
+    	for (Edge e : list)
+    	{
+    		var we = (WeightedEdge)e;
+    		weight += we.getWeight();
+    	}
+    	return weight;
+    }
+    
+    public double getSumWeight() {
+    	return getWeightOfEdgeList(this.edges);
+    }
     
     // https://stackoverflow.com/a/37836750
-    public static <T> Stream<List<T>> combinations(List<T> arr) {
+    private static <T> Stream<List<T>> combinations(List<T> arr) {
         final long N = (long) Math.pow(2, arr.size());
         return StreamSupport.stream(new AbstractSpliterator<List<T>>(N, Spliterator.SIZED) {
             long i = 1;
