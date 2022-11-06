@@ -98,20 +98,30 @@ class Graph {
         return sb.toString();
     }
 
-    public boolean DFS(Vertex startVertex, boolean debugPrint){
-        return DFS(startVertex.getId(), debugPrint);
+    enum DebugMode {
+    	On,
+    	Off
+    }
+    
+    enum SearchMode {
+    	DepthFirstSearch,
+    	CycleFinder
+    }
+    
+    public boolean DFS(Vertex startVertex, DebugMode debugPrint, SearchMode searchMode){
+        return DFS(startVertex.getId(), debugPrint, searchMode);
     }
 
-    public boolean DFS(int startId, boolean debugPrint) {
+    public boolean DFS(int startId, DebugMode debugPrint, SearchMode searchMode) {
         if (this.vertexCount==0){  //check graph empty
-        	if (debugPrint) {
+        	if (debugPrint == DebugMode.On) {
             System.out.println( "\n" + "Graph needs at least 1 Vertex to perform DFS!");
         	}
             return false;
         }
 
         if (startId>=this.vertexCount){  //check graphindex out of bound
-        	if (debugPrint) {
+        	if (debugPrint == DebugMode.On) {
             System.out.println("\n" + "The Vertex-ID (" + startId + ") needs to be lower than the number of Vertices (" + this.vertexCount + ")!");
         	}
             return false;
@@ -120,19 +130,19 @@ class Graph {
         boolean visited[] = new boolean[vertexCount]; //create list of all visited vertices, default false
 
 
-        return DFSrecursive(startId, visited, debugPrint, startId);
+        return DFSrecursive(startId, visited, debugPrint, startId, searchMode);
     }
 
-    public boolean DFS(LabeledVertex startLabeled, boolean debugPrint){
-        return DFS(startLabeled.getId(), debugPrint);
+    public boolean DFS(LabeledVertex startLabeled, DebugMode debugPrint, SearchMode searchMode){
+        return DFS(startLabeled.getId(), debugPrint, searchMode);
     }
 
-    private boolean DFSrecursive(int startId, boolean visited[], boolean debugPrint, int previousId) {
+    private boolean DFSrecursive(int startId, boolean visited[], DebugMode debugPrint, int previousId, SearchMode searchMode) {
 
 
         for (Vertex v: vertices //find vertex in list of vertexes (needed for label)
              ) {
-            if(v.getId()==startId && debugPrint){
+            if(v.getId()==startId && debugPrint == DebugMode.On){
              
             	System.out.print(v+" ");
 
@@ -144,6 +154,7 @@ class Graph {
         
         // check if there is an edge from our current vertex to any of the visited ones (except the most recently visited)
         // it so we detected a loop and must return true
+        if (searchMode == SearchMode.CycleFinder) {
         for (int i = 0;i<visited.length;++i)
         {
         	if (!visited[i] || i == previousId)
@@ -159,6 +170,7 @@ class Graph {
         		}
         	}
         }
+        }
         
         
         
@@ -171,14 +183,22 @@ class Graph {
 
             if (currentVertices[0].getId() == startId) {
                 if (!visited[currentVertices[1].getId()]) {
-                    return DFSrecursive(currentVertices[1].getId(), visited, debugPrint, startId);
+                	var ret = DFSrecursive(currentVertices[1].getId(), visited, debugPrint, startId, searchMode);
+                    if (searchMode == SearchMode.CycleFinder && ret)
+                    {
+                    	return ret;
+                    }
+              
                 }
             } else if (currentVertices[1].getId() == startId) {
                 if (!visited[currentVertices[0].getId()]) {
-                    return DFSrecursive(currentVertices[0].getId(), visited, debugPrint, startId);
+                	var ret = DFSrecursive(currentVertices[0].getId(), visited, debugPrint, startId, searchMode); 
+                    if (searchMode == SearchMode.CycleFinder && ret)
+                    {
+                    	return ret;
+                    } 
                 }
             }
-
 
         }
         return false;
@@ -236,7 +256,7 @@ class WeightedGraph extends Graph {
    		}).filter((array) -> {
    			// criteria 2, no loops
    			var wg = convertEdgesToWG(array, this.vertices); // so inefficient....
-   			return !wg.DFS(0, false);
+   			return !wg.DFS(0, Graph.DebugMode.Off, Graph.SearchMode.CycleFinder);
    		}).min((a, b) -> {
    			var wa = getWeightOfEdgeList(a);
    			var wb = getWeightOfEdgeList(b);

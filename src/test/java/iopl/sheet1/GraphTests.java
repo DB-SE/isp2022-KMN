@@ -98,19 +98,19 @@ class GraphTests {
 
 
         System.out.print("DFS(0): ");
-        g.DFS(0, true);
+        g.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
         System.out.println("");
 
         System.out.print("DFS(4): ");
-        g.DFS(4, true);
+        g.DFS(4, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
         System.out.println("");
 
         System.out.print("DFS(7): ");
-        g.DFS(7, true);
+        g.DFS(7, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
 
-        none.DFS(0, true);
+        none.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
 
-        one.DFS(1, true);
+        one.DFS(1, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
 
 
         System.out.println("");
@@ -156,15 +156,15 @@ class GraphTests {
 
 
         System.out.print("DFS- Label(0): ");
-        stringGraph.DFS(0, true);
+        stringGraph.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
         System.out.println("");
 
         System.out.print("DFS- Label(4): ");
-        stringGraph.DFS(4, true);
+        stringGraph.DFS(4, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
         System.out.println("");
 
         System.out.print("DFS- Label(7): ");
-        stringGraph.DFS(7, true);
+        stringGraph.DFS(7, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
 
 
         System.out.println("");
@@ -192,15 +192,15 @@ class GraphTests {
 
 
         System.out.print("DFS- Label(0): ");
-        wg.DFS(0, true);
+        wg.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
         System.out.println("");
 
         System.out.print("DFS- Label(1): ");
-        wg.DFS(1, true);
+        wg.DFS(1, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
         System.out.println("");
 
         System.out.print("DFS- Label(3): ");
-        wg.DFS(3, true);
+        wg.DFS(3, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
 
 
         System.out.println("");
