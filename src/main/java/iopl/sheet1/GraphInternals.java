@@ -79,6 +79,8 @@ class WeightedEdge extends Edge {
         return weight;
     }
 
+
+
     public void setWeight(double weight) {
 
         this.weight = weight;

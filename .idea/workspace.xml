@@ -7,6 +7,7 @@
     <list default="true" id="2250508f-9385-435e-bf3b-b9873be89357" name="Changes" comment="add check for DFS">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/iopl/sheet1/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/iopl/sheet1/Graph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/iopl/sheet1/GraphInternals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/iopl/sheet1/GraphInternals.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/iopl/sheet1/GraphTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iopl/sheet1/GraphTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -146,6 +147,16 @@
     <option name="localTasksCounter" value="6" />
     <servers />
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+      </list>
+    </option>
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -163,5 +174,10 @@
     <MESSAGE value="add weighted test" />
     <MESSAGE value="add check for DFS" />
     <option name="LAST_COMMIT_MESSAGE" value="add check for DFS" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/isp2022_KMN$GraphTests.ic" NAME="GraphTests Coverage Results" MODIFIED="1667752437946" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>iopl.sheet1.*</FILTER>
+    </SUITE>
   </component>
 </project>

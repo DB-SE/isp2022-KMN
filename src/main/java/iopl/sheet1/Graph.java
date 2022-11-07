@@ -20,6 +20,7 @@ class Graph {
 	protected final List<Edge> edges = new ArrayList<>();
 	protected final List<Vertex> vertices = new ArrayList<>();
 
+
 	Graph() {
 	}
 
@@ -105,11 +106,15 @@ class Graph {
 		DepthFirstSearch, CycleFinder
 	}
 
-	public boolean DFS(Vertex startVertex, DebugMode debugPrint, SearchMode searchMode) {
-		return DFS(startVertex.getId(), debugPrint, searchMode);
+	enum EdgeType {
+		Undirected, Directed
 	}
 
-	public boolean DFS(int startId, DebugMode debugPrint, SearchMode searchMode) {
+	public boolean DFS(Vertex startVertex, DebugMode debugPrint, SearchMode searchMode, EdgeType edgeType) {
+		return DFS(startVertex.getId(), debugPrint, searchMode, edgeType);
+	}
+
+	public boolean DFS(int startId, DebugMode debugPrint, SearchMode searchMode, EdgeType edgeType) {
 		if (this.vertexCount == 0) { // check graph empty
 			if (debugPrint == DebugMode.On) {
 				System.out.println("\n" + "Graph needs at least 1 Vertex to perform DFS!");
@@ -127,15 +132,15 @@ class Graph {
 
 		boolean visited[] = new boolean[vertexCount]; // create list of all visited vertices, default false
 
-		return DFSrecursive(startId, visited, debugPrint, startId, searchMode);
+		return DFSrecursive(startId, visited, debugPrint, startId, searchMode, edgeType);
 	}
 
-	public boolean DFS(LabeledVertex startLabeled, DebugMode debugPrint, SearchMode searchMode) {
-		return DFS(startLabeled.getId(), debugPrint, searchMode);
+	public boolean DFS(LabeledVertex startLabeled, DebugMode debugPrint, SearchMode searchMode, EdgeType edgeType) {
+		return DFS(startLabeled.getId(), debugPrint, searchMode, edgeType);
 	}
 
 	private boolean DFSrecursive(int startId, boolean visited[], DebugMode debugPrint, int previousId,
-			SearchMode searchMode) {
+			SearchMode searchMode, EdgeType edgeType) {
 
 		for (Vertex v : vertices // find vertex in list of vertexes (needed for label)
 		) {
@@ -176,15 +181,15 @@ class Graph {
 
 			if (currentVertices[0].getId() == startId) {
 				if (!visited[currentVertices[1].getId()]) {
-					var ret = DFSrecursive(currentVertices[1].getId(), visited, debugPrint, startId, searchMode);
+					var ret = DFSrecursive(currentVertices[1].getId(), visited, debugPrint, startId, searchMode, edgeType);
 					if (searchMode == SearchMode.CycleFinder && ret) {
 						return ret;
 					}
 
 				}
-			} else if (currentVertices[1].getId() == startId) {
+			} else if (currentVertices[1].getId() == startId && edgeType!=EdgeType.Directed) {
 				if (!visited[currentVertices[0].getId()]) {
-					var ret = DFSrecursive(currentVertices[0].getId(), visited, debugPrint, startId, searchMode);
+					var ret = DFSrecursive(currentVertices[0].getId(), visited, debugPrint, startId, searchMode, edgeType);
 					if (searchMode == SearchMode.CycleFinder && ret) {
 						return ret;
 					}
@@ -248,7 +253,7 @@ class WeightedGraph extends Graph {
 		}).filter((array) -> {
 			// criteria 2, no loops
 			var wg = convertEdgesToWG(array, this.vertices); // so inefficient....
-			return !wg.DFS(0, Graph.DebugMode.Off, Graph.SearchMode.CycleFinder);
+			return !wg.DFS(0, Graph.DebugMode.Off, Graph.SearchMode.CycleFinder, EdgeType.Undirected); //tbd variabel machen
 		}).min((a, b) -> {
 			var wa = getWeightOfEdgeList(a);
 			var wb = getWeightOfEdgeList(b);

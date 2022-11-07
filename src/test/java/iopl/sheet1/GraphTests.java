@@ -94,22 +94,87 @@ class GraphTests {
 		g.addEdge(5, 7);
 
 		System.out.print("DFS(0): ");
-		g.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
+		g.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Undirected);
 		System.out.println("");
 
 		System.out.print("DFS(4): ");
-		g.DFS(4, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
+		g.DFS(4, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Undirected);
 		System.out.println("");
 
 		System.out.print("DFS(7): ");
-		g.DFS(7, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
+		g.DFS(7, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Undirected);
 
-		none.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
+		none.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Undirected);
 
-		one.DFS(1, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
+		one.DFS(1, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Undirected);
 
 		System.out.println("");
 		System.out.println("");
+
+	}
+
+	@Test
+	public void testDFSdirected(){
+		System.out.println("======DFS - Directed/Undirected=====");
+
+		Graph g = new Graph();
+		g.addVertex();
+		g.addVertex();
+		g.addVertex();
+		g.addVertex();
+		g.addVertex();
+
+
+		g.addEdge(0, 1);
+		g.addEdge(2, 1);
+		g.addEdge(3, 1);
+		g.addEdge(3, 4);
+
+
+		System.out.print("DFS(0) - Undirected: ");
+		g.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Undirected);
+		System.out.println("");
+
+		System.out.print("DFS(0) - Directed: ");
+		g.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Directed);
+		System.out.println("");
+
+		System.out.println("");
+		System.out.println("");
+
+		System.out.println("======DFS - Directed/Undirected with Label=====");
+
+		LabeledGraph<String> stringGraph = new LabeledGraph<>();
+
+		// not safe
+		LabeledVertex<String> v = (LabeledVertex<String>) stringGraph.addVertex();
+		v.setLabel("cat");
+		v = (LabeledVertex<String>) stringGraph.addVertex();
+		v.setLabel("test");
+		v = (LabeledVertex<String>) stringGraph.addVertex();
+		v.setLabel("tree");
+		v = (LabeledVertex<String>) stringGraph.addVertex();
+		v.setLabel("book");
+		v = (LabeledVertex<String>) stringGraph.addVertex();
+		v.setLabel("chest");
+
+		stringGraph.addEdge(0, 1);
+		stringGraph.addEdge(2, 1);
+		stringGraph.addEdge(3, 1);
+		stringGraph.addEdge(3, 4);
+
+
+		System.out.print("DFS(0) - Undirected(Labeled): ");
+		stringGraph.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Undirected);
+		System.out.println("");
+
+		System.out.print("DFS(0) - Directed(Labeled): ");
+		stringGraph.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Directed);
+		System.out.println("");
+
+		System.out.println("");
+		System.out.println("");
+
 
 	}
 
@@ -149,15 +214,15 @@ class GraphTests {
 		stringGraph.addEdge(5, 7);
 
 		System.out.print("DFS- Label(0): ");
-		stringGraph.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
+		stringGraph.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Undirected);
 		System.out.println("");
 
 		System.out.print("DFS- Label(4): ");
-		stringGraph.DFS(4, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
+		stringGraph.DFS(4, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Undirected);
 		System.out.println("");
 
 		System.out.print("DFS- Label(7): ");
-		stringGraph.DFS(7, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
+		stringGraph.DFS(7, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Undirected);
 
 		System.out.println("");
 		System.out.println("");
@@ -183,15 +248,15 @@ class GraphTests {
 		edge.setWeight(10.10);
 
 		System.out.print("DFS- Label(0): ");
-		wg.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
+		wg.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Undirected);
 		System.out.println("");
 
 		System.out.print("DFS- Label(1): ");
-		wg.DFS(1, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
+		wg.DFS(1, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Undirected);
 		System.out.println("");
 
 		System.out.print("DFS- Label(3): ");
-		wg.DFS(3, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
+		wg.DFS(3, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Undirected);
 
 		System.out.println("");
 		System.out.println("");
