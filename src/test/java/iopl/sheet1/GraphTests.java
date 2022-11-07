@@ -2,6 +2,10 @@ package iopl.sheet1;
 
 import org.junit.jupiter.api.Test;
 
+import iopl.sheet1.Graph.DebugMode;
+import iopl.sheet1.Graph.EdgeType;
+import iopl.sheet1.Graph.SearchMode;
+
 import java.util.Arrays;
 
 // not really tests, just playing around a bit to see if something breaks...
@@ -62,6 +66,86 @@ class GraphTests {
 
 		System.out.println(wg);
 	}
+	
+	@Test
+	public void testWeightedLabeledGraph() {
+		
+		System.out.println("======WEIGHTED LABELED GRAPH=====");
+		WeightedLabeledGraph<String> g = new WeightedLabeledGraph<>();
+		
+		LabeledVertex<String> v = (LabeledVertex<String>) g.addVertex();
+		v.setLabel("A");
+		v = (LabeledVertex<String>) g.addVertex();
+		v.setLabel("B");
+		v = (LabeledVertex<String>) g.addVertex();
+		v.setLabel("C");
+		v = (LabeledVertex<String>) g.addVertex();
+		v.setLabel("D");
+		
+		WeightedEdge edge = (WeightedEdge) g.addEdge(0, 1);
+		edge.setWeight(3.14);
+		edge = (WeightedEdge) g.addEdge(1, 3);
+		edge.setWeight(-1);
+		edge = (WeightedEdge) g.addEdge(2, 0);
+		edge.setWeight(10.10);
+		
+		System.out.println(g);
+	}
+	
+	@Test
+	public void testWeightedLabeledGraphDFS() {
+		
+		System.out.println("======WEIGHTED LABELED GRAPH DFS=====");
+		WeightedLabeledGraph<String> g = new WeightedLabeledGraph<>();
+		
+		LabeledVertex<String> v = (LabeledVertex<String>) g.addVertex();
+		v.setLabel("A");
+		v = (LabeledVertex<String>) g.addVertex();
+		v.setLabel("B");
+		v = (LabeledVertex<String>) g.addVertex();
+		v.setLabel("C");
+		v = (LabeledVertex<String>) g.addVertex();
+		v.setLabel("D");
+		
+		WeightedEdge edge = (WeightedEdge) g.addEdge(0, 1);
+		edge.setWeight(3.14);
+		edge = (WeightedEdge) g.addEdge(1, 3);
+		edge.setWeight(-1);
+		edge = (WeightedEdge) g.addEdge(2, 0);
+		edge.setWeight(10.10);
+		
+		g.DFS(1, DebugMode.On, SearchMode.DepthFirstSearch, EdgeType.Undirected);
+		System.out.println("");
+		g.DFS(1, DebugMode.On, SearchMode.DepthFirstSearch, EdgeType.Directed);
+		System.out.println("");
+	}
+	
+	@Test
+	public void testWeightedLabeledGraphMST() {
+		
+		System.out.println("======WEIGHTED LABELED GRAPH MST=====");
+		WeightedLabeledGraph<String> g = new WeightedLabeledGraph<>();
+		
+		LabeledVertex<String> v = (LabeledVertex<String>) g.addVertex();
+		v.setLabel("A");
+		v = (LabeledVertex<String>) g.addVertex();
+		v.setLabel("B");
+		v = (LabeledVertex<String>) g.addVertex();
+		v.setLabel("C");
+		v = (LabeledVertex<String>) g.addVertex();
+		v.setLabel("D");
+		
+		WeightedEdge edge = (WeightedEdge) g.addEdge(0, 1);
+		edge.setWeight(3.14);
+		edge = (WeightedEdge) g.addEdge(1, 3);
+		edge.setWeight(-1);
+		edge = (WeightedEdge) g.addEdge(2, 0);
+		edge.setWeight(10.10);
+		
+		WeightedGraph lg = g.getAMinimumSpanningTree();
+		System.out.println(lg);
+		System.out.println("sum: " + lg.getSumWeight());
+	}
 
 	@Test
 	public void testDFS() {
@@ -110,7 +194,6 @@ class GraphTests {
 
 		System.out.println("");
 		System.out.println("");
-
 	}
 
 	@Test
@@ -288,5 +371,6 @@ class GraphTests {
 
 		var mst = wg.getAMinimumSpanningTree();
 		System.out.println(mst.getSumWeight());
+		System.out.println("");
 	}
 }

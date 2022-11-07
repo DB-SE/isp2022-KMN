@@ -325,3 +325,12 @@ class LabeledGraph<T> extends Graph {
 	}
 
 }
+
+class WeightedLabeledGraph<T> extends WeightedGraph {
+	
+	@Override
+	protected Vertex createVertex() {
+
+		return new LabeledVertex<T>(this.vertexCount);
+	}	
+}
