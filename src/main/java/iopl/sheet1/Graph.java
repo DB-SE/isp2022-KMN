@@ -321,7 +321,7 @@ class WeightedGraph extends Graph {
 
 		// no direct connection found, check abort condition (all visited)
 		var allVisited = true;
-		for (boolean v : edgeVisited) {
+		for (boolean v : edgesVisited) {
 			if (!v) {
 				allVisited = false;
 				break;
