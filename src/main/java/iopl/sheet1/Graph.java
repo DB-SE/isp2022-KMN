@@ -240,33 +240,43 @@ class WeightedGraph extends Graph {
 
 		var mst = combiStream.filter((array) -> {
 			// criteria 1, all vertices connected
-			if (edgeType == EdgeType.Undirected) {
-				var foundVertices = new ArrayList<Vertex>();
-				for (Edge e : array) {
-					var we = (WeightedEdge) e;
-					var vertices = we.vertices;
-					for (Vertex v : vertices) {
-						if (!foundVertices.contains(v)) {
-							foundVertices.add(v);
-						}
+			var foundVertices = new ArrayList<Vertex>();
+			for (Edge e : array) {
+				var we = (WeightedEdge) e;
+				var vertices = we.vertices;
+				for (Vertex v : vertices) {
+					if (!foundVertices.contains(v)) {
+						foundVertices.add(v);
 					}
 				}
-				return foundVertices.size() == this.vertexCount;
-			} else {
-				boolean anyUnconnected = false;
-				for (Vertex v1 : this.vertices) {
-					for (Vertex v2 : this.vertices) {
-						if (v1.getId() == v2.getId()) {
-							continue;
-						}
-						if (!isConnected(v1.getId(), v2.getId())) {
-							anyUnconnected = true;
-							break;
-						}
-					}
-				}
-				return !anyUnconnected;
 			}
+			if (foundVertices.size() != this.vertexCount) {
+				return false;
+			}
+			if (edgeType == EdgeType.Undirected) {
+				// exit early as further checks only apply to directed graphs
+				return true;
+			}
+
+			// test fully connectedness from any start vertex, as there may only be one
+			// start point that can reach every vertex
+			boolean anyFullyConnected = true;
+			for (Vertex v1 : this.vertices) {
+				anyFullyConnected = true;
+				for (Vertex v2 : this.vertices) {
+					if (v1.getId() == v2.getId()) {
+						continue;
+					}
+					if (!isConnected(v1.getId(), v2.getId())) {
+						anyFullyConnected = false;
+						break;
+					}
+				}
+				if (anyFullyConnected) {
+					break;
+				}
+			}
+			return anyFullyConnected;
 		}).filter((array) -> {
 			// criteria 2, no loops
 			var wg = convertEdgesToWG(array, this.vertices); // so inefficient....
@@ -283,6 +293,10 @@ class WeightedGraph extends Graph {
 			return 0;
 		});
 
+		if (mst.isEmpty()) {
+			System.out.println("!! Graph has unconnected vertices !!");
+		}
+
 		return convertEdgesToWG(mst.get(), this.vertices);
 	}
 
@@ -292,11 +306,11 @@ class WeightedGraph extends Graph {
 		if (this.edges.isEmpty() || this.vertices.isEmpty()) {
 			return false;
 		}
-		boolean vertexVisited[] = new boolean[this.vertices.size()];
-		return isConnectedRecursively(vertexStartIndex, vertexEndIndex, vertexVisited);
+		boolean edgesVisited[] = new boolean[this.edges.size()];
+		return isConnectedRecursively(vertexStartIndex, vertexEndIndex, edgesVisited);
 	}
 
-	private boolean isConnectedRecursively(int vertexStartIndex, int vertexEndIndex, boolean[] vertexVisited) {
+	private boolean isConnectedRecursively(int vertexStartIndex, int vertexEndIndex, boolean[] edgesVisited) {
 		// check if there is an edge from the changing start index to end index
 		for (Edge e : this.edges) {
 			var verts = e.getVertices();
@@ -306,9 +320,8 @@ class WeightedGraph extends Graph {
 		}
 
 		// no direct connection found, check abort condition (all visited)
-		vertexVisited[vertexStartIndex] = true;
 		var allVisited = true;
-		for (boolean v : vertexVisited) {
+		for (boolean v : edgeVisited) {
 			if (!v) {
 				allVisited = false;
 				break;
@@ -319,11 +332,11 @@ class WeightedGraph extends Graph {
 		}
 
 		// explore further
-		for (Edge e : this.edges) {
-			var verts = e.getVertices();
-			if (!vertexVisited[verts[1].getId()] && verts[0].getId() == vertexStartIndex) {
-				var ret = isConnectedRecursively(verts[1].getId(), vertexEndIndex, vertexVisited);
-				if (ret) {
+		for (int i = 0;i<this.edges.size(); i++) {
+			var verts = this.edges.get(i).getVertices();
+			if (!edgesVisited[i] && verts[0].getId() == vertexStartIndex) {
+				edgesVisited[i] = true;
+				if (isConnectedRecursively(verts[1].getId(), vertexEndIndex, edgesVisited)) {
 					return true;
 				}
 			}
