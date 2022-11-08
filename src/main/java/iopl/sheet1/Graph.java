@@ -20,7 +20,6 @@ class Graph {
 	protected final List<Edge> edges = new ArrayList<>();
 	protected final List<Vertex> vertices = new ArrayList<>();
 
-
 	Graph() {
 	}
 
@@ -42,7 +41,7 @@ class Graph {
 	}
 
 	/**
-	 * Adds two vertices and an edge inbetween.
+	 * Adds two vertices and an edge in-between.
 	 *
 	 * @param vertex1ID graph id of vertex 1
 	 * @param vertex2ID vertex graph id of vertex 2
@@ -164,8 +163,8 @@ class Graph {
 					continue;
 				}
 				for (Edge e : edges) {
-					if ((e.vertices[0].getId() == i && e.vertices[1].getId() == startId)
-							|| (e.vertices[1].getId() == i && e.vertices[0].getId() == startId)) {
+					if ((e.vertices[0].getId() == i && e.vertices[1].getId() == startId) || (e.vertices[1].getId() == i
+							&& e.vertices[0].getId() == startId && edgeType == EdgeType.Undirected)) {
 						return true;
 					}
 				}
@@ -181,15 +180,17 @@ class Graph {
 
 			if (currentVertices[0].getId() == startId) {
 				if (!visited[currentVertices[1].getId()]) {
-					var ret = DFSrecursive(currentVertices[1].getId(), visited, debugPrint, startId, searchMode, edgeType);
+					var ret = DFSrecursive(currentVertices[1].getId(), visited, debugPrint, startId, searchMode,
+							edgeType);
 					if (searchMode == SearchMode.CycleFinder && ret) {
 						return ret;
 					}
 
 				}
-			} else if (currentVertices[1].getId() == startId && edgeType!=EdgeType.Directed) {
+			} else if (currentVertices[1].getId() == startId && edgeType != EdgeType.Directed) {
 				if (!visited[currentVertices[0].getId()]) {
-					var ret = DFSrecursive(currentVertices[0].getId(), visited, debugPrint, startId, searchMode, edgeType);
+					var ret = DFSrecursive(currentVertices[0].getId(), visited, debugPrint, startId, searchMode,
+							edgeType);
 					if (searchMode == SearchMode.CycleFinder && ret) {
 						return ret;
 					}
@@ -229,7 +230,7 @@ class WeightedGraph extends Graph {
 	 * cycles (-> subset of connected edges where only the start and the end vertex
 	 * is the same) - minimum possible sum of weights
 	 */
-	public WeightedGraph getAMinimumSpanningTree() {
+	public WeightedGraph getAMinimumSpanningTree(EdgeType edgeType) {
 		// This is a brute force algorithm, testing all combinations of edges for
 		// criteria 1 and 2
 		// at the end, the candidate with the lowest sum of weights wins, if multiple
@@ -239,21 +240,37 @@ class WeightedGraph extends Graph {
 
 		var mst = combiStream.filter((array) -> {
 			// criteria 1, all vertices connected
-			var foundVertices = new ArrayList<Vertex>();
-			for (Edge e : array) {
-				var we = (WeightedEdge) e;
-				var vertices = we.vertices;
-				for (Vertex v : vertices) {
-					if (!foundVertices.contains(v)) {
-						foundVertices.add(v);
+			if (edgeType == EdgeType.Undirected) {
+				var foundVertices = new ArrayList<Vertex>();
+				for (Edge e : array) {
+					var we = (WeightedEdge) e;
+					var vertices = we.vertices;
+					for (Vertex v : vertices) {
+						if (!foundVertices.contains(v)) {
+							foundVertices.add(v);
+						}
 					}
 				}
+				return foundVertices.size() == this.vertexCount;
+			} else {
+				boolean anyUnconnected = false;
+				for (Vertex v1 : this.vertices) {
+					for (Vertex v2 : this.vertices) {
+						if (v1.getId() == v2.getId()) {
+							continue;
+						}
+						if (!isConnected(v1.getId(), v2.getId())) {
+							anyUnconnected = true;
+							break;
+						}
+					}
+				}
+				return !anyUnconnected;
 			}
-			return foundVertices.size() == this.vertexCount;
 		}).filter((array) -> {
 			// criteria 2, no loops
 			var wg = convertEdgesToWG(array, this.vertices); // so inefficient....
-			return !wg.DFS(0, Graph.DebugMode.Off, Graph.SearchMode.CycleFinder, EdgeType.Undirected); //tbd variabel machen
+			return !wg.DFS(0, Graph.DebugMode.Off, Graph.SearchMode.CycleFinder, edgeType);
 		}).min((a, b) -> {
 			var wa = getWeightOfEdgeList(a);
 			var wb = getWeightOfEdgeList(b);
@@ -267,6 +284,52 @@ class WeightedGraph extends Graph {
 		});
 
 		return convertEdgesToWG(mst.get(), this.vertices);
+	}
+
+	// Only works for directed graphs
+	// Checks if the two vertices are connected with a continuous chain of edges
+	private boolean isConnected(int vertexStartIndex, int vertexEndIndex) {
+		if (this.edges.isEmpty() || this.vertices.isEmpty()) {
+			return false;
+		}
+		boolean vertexVisited[] = new boolean[this.vertices.size()];
+		return isConnectedRecursively(vertexStartIndex, vertexEndIndex, vertexVisited);
+	}
+
+	private boolean isConnectedRecursively(int vertexStartIndex, int vertexEndIndex, boolean[] vertexVisited) {
+		// check if there is an edge from the changing start index to end index
+		for (Edge e : this.edges) {
+			var verts = e.getVertices();
+			if (verts[0].getId() == vertexStartIndex && verts[1].getId() == vertexEndIndex) {
+				return true;
+			}
+		}
+
+		// no direct connection found, check abort condition (all visited)
+		vertexVisited[vertexStartIndex] = true;
+		var allVisited = true;
+		for (boolean v : vertexVisited) {
+			if (!v) {
+				allVisited = false;
+				break;
+			}
+		}
+		if (allVisited) {
+			return false;
+		}
+
+		// explore further
+		for (Edge e : this.edges) {
+			var verts = e.getVertices();
+			if (!vertexVisited[verts[1].getId()] && verts[0].getId() == vertexStartIndex) {
+				var ret = isConnectedRecursively(verts[1].getId(), vertexEndIndex, vertexVisited);
+				if (ret) {
+					return true;
+				}
+			}
+
+		}
+		return false;
 	}
 
 	private WeightedGraph convertEdgesToWG(List<Edge> e, List<Vertex> v) {
@@ -327,10 +390,10 @@ class LabeledGraph<T> extends Graph {
 }
 
 class WeightedLabeledGraph<T> extends WeightedGraph {
-	
+
 	@Override
 	protected Vertex createVertex() {
 
 		return new LabeledVertex<T>(this.vertexCount);
-	}	
+	}
 }

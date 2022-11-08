@@ -142,7 +142,7 @@ class GraphTests {
 		edge = (WeightedEdge) g.addEdge(2, 0);
 		edge.setWeight(10.10);
 		
-		WeightedGraph lg = g.getAMinimumSpanningTree();
+		WeightedGraph lg = g.getAMinimumSpanningTree(Graph.EdgeType.Undirected);
 		System.out.println(lg);
 		System.out.println("sum: " + lg.getSumWeight());
 	}
@@ -347,8 +347,8 @@ class GraphTests {
 	}
 
 	@Test
-	public void testMST() {
-		System.out.println("====== MST =====");
+	public void testMSTUndirected() {
+		System.out.println("====== MST Uni =====");
 
 		WeightedGraph wg = new WeightedGraph();
 		wg.addVertex();
@@ -369,7 +369,35 @@ class GraphTests {
 		edge = (WeightedEdge) wg.addEdge(3, 1);
 		edge.setWeight(20);
 
-		var mst = wg.getAMinimumSpanningTree();
+		var mst = wg.getAMinimumSpanningTree(Graph.EdgeType.Undirected);
+		System.out.println(mst.getSumWeight());
+		System.out.println("");
+	}
+	
+	@Test
+	public void testMSTDirected() {
+		System.out.println("====== MST Directed =====");
+
+		WeightedGraph wg = new WeightedGraph();
+		wg.addVertex();
+		wg.addVertex();
+		wg.addVertex();
+		wg.addVertex();
+
+		WeightedEdge edge = (WeightedEdge) wg.addEdge(0, 1);
+		edge.setWeight(1);
+		edge = (WeightedEdge) wg.addEdge(1, 2);
+		edge.setWeight(2);
+		edge = (WeightedEdge) wg.addEdge(3, 2);
+		edge.setWeight(3);
+		edge = (WeightedEdge) wg.addEdge(3, 0);
+		edge.setWeight(5);
+		edge = (WeightedEdge) wg.addEdge(2, 0);
+		edge.setWeight(10);
+		edge = (WeightedEdge) wg.addEdge(1, 3);
+		edge.setWeight(20);
+
+		var mst = wg.getAMinimumSpanningTree(Graph.EdgeType.Directed);
 		System.out.println(mst.getSumWeight());
 		System.out.println("");
 	}
