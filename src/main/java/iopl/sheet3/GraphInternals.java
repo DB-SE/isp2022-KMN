@@ -1,4 +1,4 @@
-package iopl.sheet1;
+package iopl.sheet3;
 
 class Vertex {
     private final int id;

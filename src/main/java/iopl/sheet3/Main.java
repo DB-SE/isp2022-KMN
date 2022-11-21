@@ -1,9 +1,9 @@
-package iopl.sheet1;
+package iopl.sheet3;
 
 import java.util.Arrays;
 
-import iopl.sheet1.Graph.EdgeType;
-import iopl.sheet1.Graph.Matrix;
+import iopl.sheet3.Graph.EdgeType;
+import iopl.sheet3.Graph.Matrix;
 
 public class Main {
 	
