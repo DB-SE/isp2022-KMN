@@ -40,6 +40,59 @@ class LabeledVertex<T> extends Vertex {
     }
 }
 
+enum Colors {
+	Blue, Yellow, Red, Green, Pink, White, Black, Orange, Brown, Purple
+}
+
+class ColoredVertex<Colors> extends Vertex {
+
+    Colors color;
+
+    ColoredVertex(int id) {
+        super(id);
+    }
+
+    public void setColor(Colors color) {
+
+        this.color = color;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s(%s)",
+                super.toString(),
+                (this.color != null)? this.color.toString() : "");
+    }
+}
+
+class ColoredLabeledVertex<Colors, T> extends Vertex {
+
+    Colors color;
+    T label;
+
+    ColoredLabeledVertex(int id) {
+        super(id);
+    }
+
+    public void setColor(Colors color) {
+
+        this.color = color;
+    }
+    
+    public void setLabel(T label) {
+
+        this.label = label;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s(%s,%s)",
+                super.toString(),
+                (this.color != null)? this.color.toString() : "", (this.label != null)? this.label.toString() : "") ;
+    }
+}
+
+
 
 class Edge {
 

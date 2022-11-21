@@ -4,16 +4,16 @@
 	<feature automatic="selected" name="GraphType"/>
 	<feature automatic="selected" name="BaseGraph"/>
 	<feature automatic="selected" manual="selected" name="SpecialGraph"/>
-	<feature automatic="selected" name="WeightedGraph"/>
+	<feature automatic="unselected" name="WeightedGraph"/>
 	<feature manual="selected" name="LabeledGraph"/>
-	<feature name="ColoredGraph"/>
+	<feature manual="selected" name="ColoredGraph"/>
 	<feature automatic="selected" name="EdgeType"/>
-	<feature automatic="unselected" name="DirectedEdge"/>
-	<feature manual="selected" name="UndirectedEdge"/>
+	<feature manual="selected" name="DirectedEdge"/>
+	<feature automatic="unselected" name="UndirectedEdge"/>
 	<feature automatic="selected" name="Functions"/>
-	<feature manual="selected" name="MST"/>
+	<feature automatic="unselected" name="MST"/>
 	<feature automatic="selected" name="DFS"/>
 	<feature automatic="selected" name="AdjMatrix"/>
-	<feature automatic="unselected" name="DefaultMatrix"/>
-	<feature automatic="selected" name="WeightedMatrix"/>
+	<feature manual="selected" name="DefaultMatrix"/>
+	<feature automatic="unselected" name="WeightedMatrix"/>
 </configuration>

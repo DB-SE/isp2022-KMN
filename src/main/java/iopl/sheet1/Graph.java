@@ -108,6 +108,10 @@ class Graph {
 	enum EdgeType {
 		Undirected, Directed
 	}
+	
+	enum Matrix {
+		Unweighted, Weighted
+	}
 
 	public boolean DFS(Vertex startVertex, DebugMode debugPrint, SearchMode searchMode, EdgeType edgeType) {
 		return DFS(startVertex.getId(), debugPrint, searchMode, edgeType);
@@ -199,6 +203,43 @@ class Graph {
 
 		}
 		return false;
+	}
+
+
+	public void getAdjMatr(EdgeType edgeType, Matrix type) {
+		
+	if(type == Matrix.Unweighted) {
+	int[][] AdjMatrix=new int[this.vertexCount][this.vertexCount];
+	for (Edge e : edges) {
+		
+		Vertex[] currentVertices = e.getVertices();
+		AdjMatrix[currentVertices[0].getId()][currentVertices[1].getId()]=1;
+		
+		if (edgeType == EdgeType.Undirected) {
+			AdjMatrix[currentVertices[1].getId()][currentVertices[0].getId()]=1;
+		}
+	}
+	System.out.println(Arrays.deepToString(AdjMatrix));
+
+	}
+	
+	else {
+	double[][] AdjMatrix=new double[this.vertexCount][this.vertexCount];
+	for (Edge e : edges) {
+	
+			Vertex[] currentVertices = e.getVertices();
+			var we=(WeightedEdge) e;
+
+			AdjMatrix[currentVertices[0].getId()][currentVertices[1].getId()]=we.getWeight();
+			
+			if (edgeType == EdgeType.Undirected) {
+				AdjMatrix[currentVertices[1].getId()][currentVertices[0].getId()]=we.getWeight();
+			}
+		}
+	System.out.println(Arrays.deepToString(AdjMatrix));
+
+	}
+
 	}
 }
 
@@ -398,6 +439,26 @@ class LabeledGraph<T> extends Graph {
 	protected Vertex createVertex() {
 
 		return new LabeledVertex<T>(this.vertexCount);
+	}
+
+}
+
+class ColoredGraph<Colors> extends Graph {
+
+	@Override
+	protected Vertex createVertex() {
+
+		return new ColoredVertex<Colors>(this.vertexCount);
+	}
+
+}
+
+class ColoredLabeledGraph<Colors, T> extends ColoredGraph {
+
+	@Override
+	protected Vertex createVertex() {
+
+		return new ColoredLabeledVertex<Colors, T>(this.vertexCount);
 	}
 
 }
