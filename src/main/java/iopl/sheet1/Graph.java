@@ -471,3 +471,21 @@ class WeightedLabeledGraph<T> extends WeightedGraph {
 		return new LabeledVertex<T>(this.vertexCount);
 	}
 }
+
+class WeightedColoredGraph<T> extends WeightedGraph {
+
+	@Override
+	protected Vertex createVertex() {
+
+		return new ColoredVertex<Colors>(this.vertexCount);
+	}
+}
+
+class WeightedColoredLabeledGraph<Colors, T> extends WeightedGraph {
+
+	@Override
+	protected Vertex createVertex() {
+
+		return new ColoredLabeledVertex<Colors, String>(this.vertexCount);
+	}
+}
