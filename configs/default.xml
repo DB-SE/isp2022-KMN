@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+	<feature automatic="selected" name="featureIDEgraphs"/>
+	<feature automatic="selected" name="GraphType"/>
+	<feature automatic="selected" name="BaseGraph"/>
+	<feature automatic="selected" manual="selected" name="SpecialGraph"/>
+	<feature automatic="selected" name="WeightedGraph"/>
+	<feature manual="selected" name="LabeledGraph"/>
+	<feature name="ColoredGraph"/>
+	<feature automatic="selected" name="EdgeType"/>
+	<feature automatic="unselected" name="DirectedEdge"/>
+	<feature manual="selected" name="UndirectedEdge"/>
+	<feature automatic="selected" name="Functions"/>
+	<feature manual="selected" name="MST"/>
+	<feature automatic="selected" name="DFS"/>
+	<feature automatic="selected" name="AdjMatrix"/>
+	<feature automatic="unselected" name="DefaultMatrix"/>
+	<feature automatic="selected" name="WeightedMatrix"/>
+</configuration>

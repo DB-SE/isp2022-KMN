@@ -10,7 +10,6 @@ import java.util.Arrays;
 
 // not really tests, just playing around a bit to see if something breaks...
 class GraphTests {
-
 	@Test
 	public void testRegularGraph() {
 

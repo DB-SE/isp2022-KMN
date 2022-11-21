@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showconstraints" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and abstract="true" mandatory="true" name="featureIDEgraphs">
+			<and abstract="true" mandatory="true" name="GraphType">
+				<feature mandatory="true" name="BaseGraph"/>
+				<or abstract="true" name="SpecialGraph">
+					<feature name="WeightedGraph"/>
+					<feature name="LabeledGraph"/>
+					<feature name="ColoredGraph"/>
+				</or>
+			</and>
+			<alt abstract="true" mandatory="true" name="EdgeType">
+				<feature name="DirectedEdge"/>
+				<feature name="UndirectedEdge"/>
+			</alt>
+			<and abstract="true" mandatory="true" name="Functions">
+				<feature name="MST"/>
+				<feature mandatory="true" name="DFS"/>
+			</and>
+			<alt abstract="true" mandatory="true" name="AdjMatrix">
+				<feature name="DefaultMatrix"/>
+				<feature name="WeightedMatrix"/>
+			</alt>
+		</and>
+	</struct>
+	<constraints>
+		<rule>
+			<imp>
+				<var>WeightedGraph</var>
+				<var>MST</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>MST</var>
+				<var>WeightedGraph</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>WeightedGraph</var>
+				<var>WeightedMatrix</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<not>
+					<var>WeightedGraph</var>
+				</not>
+				<var>DefaultMatrix</var>
+			</imp>
+		</rule>
+	</constraints>
+</featureModel>
