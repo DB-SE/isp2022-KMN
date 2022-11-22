@@ -1,0 +1,18 @@
+
+5e:
+Kannst du Code Scattering, Code Tangling in beiden Projekten vermeiden?
+Kannst du innerhalb eines Projekts Code Replication vermeiden? Wie? Kannst
+du Feature Traceability gewährleisten?
+
+Code Scattering und Code Tangling sind beides Formen von "Technical Debt" die Code sehr schnell unleserlich machen und
+Programmierern wertvolle Arbeitszeit rauben. 
+Code Tangling tritt auf, wenn eine Funktion, die im besten Fall, nur eine simple Aufgabe haben soll, vollgestopft ist mit Dingen die nicht direkt relevant sind für ihre Aufgabe. Dies beinhaltet z.B. exzessive Mengen Logging / Tracing Code oder Code von Teilschritten der Funktion, die besser ausgelagert werden sollten. 
+Die benötigte Denkleistung steigt mit der Komplexität der Funktion. Die Zyklomatische Komplexität wird von vielen statischen Analyzern benutzt um den Programmierer hinzuweisen.
+Falls jedoch das Logging streng benötigt wird, kann man versuchen Code, der echte Arbeit erledigt (mathematische Berechnungen, calls in das Betriebsystem usw.) in kleine Funktionen auslagern, die im Inneren kein Logging brauchen und nur die Rückgabewerte evt. relevant werden.
+
+Code Scattering kann aber durch starkes auftrennen von Programmcode entstehen. Wird Logik die keine 50 Zeilen umfasst, auf vier Klassen wild verteilt, hat man keinen Vorteil erlangt und nur den Code schlechter lesbar gemacht. 
+Das DRY Prinzip (don't repeat yourself) bietet auch Potential missbraucht zu werden. Es kommt manchmal vor, das Zwei Funktionen sehr ähnliche Sachen machen, aber die Unterschiede doch betont genug sind, das man nicht einfach einen gemeinsamen Nenner finden kann. Man darf sich an dieser Stelle nicht verführen lassen, seinen Code so zu konfussieren, das der originale Sinn komplett verlohren geht. Falls man sich nicht ganz sicher ist, kann man immernoch im Code Review darauf ansprechen, ob das eigene Erzeugnis überhaupt noch lesbar ist.
+
+Idealerweise lässt sich eine Applikation so designen, das minimale Verkreuzung zwischen Klassen von verschiedener Features existiert. Dies ist jedoch unrealistisch für Programme die bereits eine bescheidene Größe überschreiten. 
+Software kann in Form von Schichten designed werden, deren Grenzen nur durch feste APIs gehen. So z.B. gesagt werden, das eine Klasse die zum "Treiber" Teil einer Applikation gehört, kein UI Feature implementieren kann. 
+Für feinere Aufteilung können Programme wie z.B. FeatureIDE helfen, was es möglich macht, den Featureumfang zu definieren und Klassen, Funktionen und Codeteile zuzuordnen. 
