@@ -1,7 +1,20 @@
 package iopl.sheet3;
 
+//#ifdef
+enum Color {
+	Blue, Yellow, Red, Green, Pink, White, Black, Orange, Brown, Purple
+}
+//#endif
+
 class Vertex {
     private final int id;
+  //#ifdef LabeledGraph
+    String label;
+  //#endif
+  //#ifdef ColoredGraph
+    Color color;
+  //#endif
+    
 
     Vertex(final int id) {
         this.id = id;
@@ -13,138 +26,89 @@ class Vertex {
 
     @Override
     public String toString() {
-
-        return String.format("Vertex %d", this.id);
-    }
-}
-
-
-class LabeledVertex<T> extends Vertex {
-
-    T label;
-
-    LabeledVertex(int id) {
-        super(id);
-    }
-
-    public void setLabel(T label) {
-
-        this.label = label;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%s(%s)",
-                super.toString(),
-                (this.label != null)? this.label.toString() : "");
-    }
-}
-
-enum Colors {
-	Blue, Yellow, Red, Green, Pink, White, Black, Orange, Brown, Purple
-}
-
-class ColoredVertex<Colors> extends Vertex {
-
-    Colors color;
-
-    ColoredVertex(int id) {
-        super(id);
-    }
-
-    public void setColor(Colors color) {
-
-        this.color = color;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%s(%s)",
-                super.toString(),
-                (this.color != null)? this.color.toString() : "");
-    }
-}
-
-class ColoredLabeledVertex<Colors, T> extends Vertex {
-
-    Colors color;
-    T label;
-
-    ColoredLabeledVertex(int id) {
-        super(id);
-    }
-
-    public void setColor(Colors color) {
-
-        this.color = color;
+    	String out = new String();
+        out = String.format("Vertex %d", this.id);
+        //#ifdef LabeledGraph
+        out.concat(String.format("(%s)",
+                (this.label != null)? this.label.toString() : ""));
+        //#endif
+        //#ifdef ColoredGraph
+        out.concat(String.format("(%s)",
+                (this.color != null)? this.color.toString() : ""));
+        //#endif
+        
+        return out;
     }
     
-    public void setLabel(T label) {
+  //#ifdef LabeledGraph
+    public void setLabel(String label) {
 
         this.label = label;
     }
+  //#endif
+  //#ifdef ColoredGraph
+    public void setColor(Color color) {
 
-    @Override
-    public String toString() {
-        return String.format("%s(%s,%s)",
-                super.toString(),
-                (this.color != null)? this.color.toString() : "", (this.label != null)? this.label.toString() : "") ;
+        this.color = color;
     }
+  //#endif
 }
-
-
 
 class Edge {
 
     protected final Vertex[] vertices;
+  //#ifdef WeightedGraph
+    private double weight;
+  //#endif
 
+  //#ifndef WeightedGraph
     Edge(Vertex v1, Vertex v2) {
 
         this.vertices = new Vertex[]{v1, v2};
     }
+  //#endif
+  //#ifdef WeightedGraph
+    Edge(Vertex v1, Vertex v2, double weight) {
+    	
+    	this.vertices = new Vertex[] {v1, v2};
+        this.weight = weight;
+    }
+  //#endif
+    
     public Vertex[] getVertices() {
 
         return this.vertices;
     }
-
-    @Override
-    public String toString() {
-
-        return String.format("%s ----- %s",
-                this.vertices[0],
-                this.vertices[1]);
-    }
-}
-
-
-class WeightedEdge extends Edge {
-
-    private double weight;
-
-    WeightedEdge(Vertex v1, Vertex v2, double weight) {
-
-        super(v1,v2);
-        this.weight = weight;
-    }
-
+    
+  //#ifdef WeightedGraph
     public double getWeight() {
 
         return weight;
     }
 
-
-
     public void setWeight(double weight) {
 
         this.weight = weight;
     }
+  //endif
 
     @Override
     public String toString() {
-
-        return String.format("%s --%.2f-- %s",
+    	
+    	String out;
+    	
+    	//#ifndef WeightedGraph
+    	out = String.format("%s ----- %s",
+                this.vertices[0],
+                this.vertices[1]);
+    	//#endif
+    	//#ifdef WeightedGraph
+    	out = String.format("%s --%.2f-- %s",
                 this.vertices[0],
                 this.weight,
                 this.vertices[1]);
+    	//#endif
+    	
+        return out;
     }
 }
