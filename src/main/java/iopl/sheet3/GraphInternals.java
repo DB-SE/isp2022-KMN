@@ -1,6 +1,6 @@
 package iopl.sheet3;
 
-//#ifdef
+//#if ColoredGraph 
 enum Color {
 	Blue, Yellow, Red, Green, Pink, White, Black, Orange, Brown, Purple
 }
@@ -8,12 +8,13 @@ enum Color {
 
 class Vertex {
     private final int id;
-  //#ifdef LabeledGraph
-    String label;
+  //#if LabeledGraph
+//@    String label;
   //#endif
-  //#ifdef ColoredGraph
+    
+  //#if ColoredGraph
     Color color;
-  //#endif
+  //#endif 
     
 
     Vertex(final int id) {
@@ -28,9 +29,9 @@ class Vertex {
     public String toString() {
     	String out = new String();
         out = String.format("Vertex %d", this.id);
-        //#ifdef LabeledGraph
-        out.concat(String.format("(%s)",
-                (this.label != null)? this.label.toString() : ""));
+        //#ifdef  LabeledGraph
+//@        out.concat(String.format("(%s)",
+//@                (this.label != null)? this.label.toString() : ""));
         //#endif
         //#ifdef ColoredGraph
         out.concat(String.format("(%s)",
@@ -41,38 +42,41 @@ class Vertex {
     }
     
   //#ifdef LabeledGraph
-    public void setLabel(String label) {
-
-        this.label = label;
-    }
+//@    public void setLabel(String label) {
+//@
+//@        this.label = label;
+//@    }
   //#endif
+    
   //#ifdef ColoredGraph
     public void setColor(Color color) {
 
         this.color = color;
     }
   //#endif
+    
+    
 }
 
 class Edge {
 
     protected final Vertex[] vertices;
   //#ifdef WeightedGraph
-    private double weight;
+//@    private double weight;
   //#endif
 
-  //#ifndef WeightedGraph
+  //#if !WeightedGraph
     Edge(Vertex v1, Vertex v2) {
 
         this.vertices = new Vertex[]{v1, v2};
     }
   //#endif
-  //#ifdef WeightedGraph
-    Edge(Vertex v1, Vertex v2, double weight) {
-    	
-    	this.vertices = new Vertex[] {v1, v2};
-        this.weight = weight;
-    }
+  //#if WeightedGraph
+//@    Edge(Vertex v1, Vertex v2, double weight) {
+//@    	
+//@    	this.vertices = new Vertex[] {v1, v2};
+//@        this.weight = weight;
+//@    }
   //#endif
     
     public Vertex[] getVertices() {
@@ -80,34 +84,66 @@ class Edge {
         return this.vertices;
     }
     
-  //#ifdef WeightedGraph
-    public double getWeight() {
-
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-
-        this.weight = weight;
-    }
-  //endif
+  //#if WeightedGraph
+//@    public double getWeight() {
+//@
+//@        return weight;
+//@    }
+//@
+//@    public void setWeight(double weight) {
+//@
+//@        this.weight = weight;
+//@    }
+  //#endif
 
     @Override
     public String toString() {
     	
     	String out;
+    	Double weight=1.0;
     	
-    	//#ifndef WeightedGraph
-    	out = String.format("%s ----- %s",
-                this.vertices[0],
-                this.vertices[1]);
+    	//#if WeightedGraph 
+//@    	weight=this.getWeight();
     	//#endif
-    	//#ifdef WeightedGraph
-    	out = String.format("%s --%.2f-- %s",
+    	
+    	
+    	
+    	
+    	out = String.format("%s --(%.2f)-- %s",
                 this.vertices[0],
-                this.weight,
+                weight,
                 this.vertices[1]);
-    	//#endif
+    	
+    	
+    	
+    	//#if LabeledGraph && !ColoredGraph 
+//@    	    	out = String.format("%s(%s) --(%.2f)-- %s(%s)",
+//@    	                this.vertices[0],
+//@    	                this.vertices[0].label,
+//@    	                weight,
+//@    	                this.vertices[1],
+//@    	                this.vertices[1].label);
+    	 //#endif
+    	    	
+    	    	//#if ColoredGraph && !LabeledGraph 
+    	    	out = String.format("%s(%s) --(%.2f)-- %s(%s)",
+    	                this.vertices[0],
+    	                this.vertices[0].color,
+    	    			weight,
+    	                this.vertices[1],
+    	                this.vertices[1].color);
+    	 //#endif
+    	
+    	//#if ColoredGraph && LabeledGraph 
+//@    	    	    	out = String.format("%s(%s,%s) --(%.2f)-- %s(%s,%s)",
+//@    	    	                this.vertices[0],
+//@    	    	                this.vertices[0].color,
+//@    	    	                this.vertices[0].label,
+//@    	    	                weight,
+//@    	    	                this.vertices[1],
+//@    	    	                this.vertices[1].color,
+//@    	    	                this.vertices[1].label);
+    	 //#endif
     	
         return out;
     }

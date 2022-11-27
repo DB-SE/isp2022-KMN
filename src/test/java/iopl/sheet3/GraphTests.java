@@ -3,17 +3,13 @@ package iopl.sheet3;
 import org.junit.jupiter.api.Test;
 
 import iopl.sheet3.Graph;
-import iopl.sheet3.LabeledGraph;
-import iopl.sheet3.LabeledVertex;
-import iopl.sheet3.WeightedEdge;
-import iopl.sheet3.WeightedGraph;
-import iopl.sheet3.WeightedLabeledGraph;
+
 import iopl.sheet3.Graph.DebugMode;
-import iopl.sheet3.Graph.EdgeType;
+
 import iopl.sheet3.Graph.SearchMode;
 
 import java.util.Arrays;
-
+/*
 // not really tests, just playing around a bit to see if something breaks...
 class GraphTests {
 	@Test
@@ -407,3 +403,4 @@ class GraphTests {
 		System.out.println("");
 	}
 }
+*/

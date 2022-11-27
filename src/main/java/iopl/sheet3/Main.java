@@ -1,124 +1,71 @@
 package iopl.sheet3;
 
-import java.util.Arrays;
-
-import iopl.sheet3.Graph.EdgeType;
-import iopl.sheet3.Graph.Matrix;
 
 public class Main {
 	
 	public static void main(String[] args) {
 		
 		
-		// --------------------------------Create Graphs
+		// --------------------------------Create Graph
 		
-		//#if BaseGraph && !WeightedGraph && !LabeledGraph && !ColoredGraph 
-//@		Graph graph = new Graph();
-		//#endif
-		//#if WeightedGraph && !LabeledGraph && !ColoredGraph 
-		WeightedGraph graph = new WeightedGraph();
-		//#endif
-		//#if ColoredGraph && WeightedGraph && !LabeledGraph 
-//@		WeightedColoredGraph<Colors> graph = new WeightedColoredGraph();
-		//#endif
-		//#if LabeledGraph && WeightedGraph && !ColoredGraph 
-//@				WeightedLabeledGraph<String> graph = new WeightedLabeledGraph<>();
-				//#endif
-		//#if LabeledGraph && !WeightedGraph && !ColoredGraph 
-//@		LabeledGraph<String> graph = new LabeledGraph<>();
-		//#endif
-		//#if LabeledGraph && ColoredGraph && !WeightedGraph 
-//@		ColoredLabeledGraph<Colors, String> graph = new ColoredLabeledGraph<>();
-		//#endif
-		//#if LabeledGraph && ColoredGraph && WeightedGraph 
-//@		WeightedColoredLabeledGraph<Colors, String> graph = new WeightedColoredLabeledGraph<>();
-		//#endif
+	
+	Graph graph = new Graph();
+		
 		
 		
 		//-------------------------------------
 		
 		
 		//----------------------------Create Vertices
-		//#if !LabeledGraph  && !ColoredGraph 
-		graph.addVertex();
-		graph.addVertex();
-		graph.addVertex();
-		graph.addVertex();
-		graph.addVertex();
-		graph.addVertex();
-		graph.addVertex();
-		graph.addVertex(); // 8 vertexes
+		//#if BaseGraph && !LabeledGraph && !ColoredGraph  
+//@		graph.addVertex();
+//@		graph.addVertex();
+//@		graph.addVertex();
+//@		graph.addVertex();
+//@		graph.addVertex();
+//@		graph.addVertex();
+//@		graph.addVertex();
+//@		graph.addVertex(); // 8 vertexes
 		//#endif
 		
 		
 		//#if LabeledGraph && !ColoredGraph 
-//@		LabeledVertex<String> v = (LabeledVertex<String>) graph.addVertex();
-//@		v.setLabel("cat");
-//@		v = (LabeledVertex<String>) graph.addVertex();
-//@		v.setLabel("test");
-//@		v = (LabeledVertex<String>) graph.addVertex();
-//@		v.setLabel("tree");
-//@		v = (LabeledVertex<String>) graph.addVertex();
-//@		v.setLabel("book");
-//@		v = (LabeledVertex<String>) graph.addVertex();
-//@		v.setLabel("chest");
-//@		v = (LabeledVertex<String>) graph.addVertex();
-//@		v.setLabel("christmas");
-//@		v = (LabeledVertex<String>) graph.addVertex();
-//@		v.setLabel("help");
-//@		v = (LabeledVertex<String>) graph.addVertex();
-//@		v.setLabel("page");
+//@		graph.addVertex("cat");
+//@		graph.addVertex("test");
+//@		graph.addVertex("tree");
+//@		graph.addVertex("book");
+//@		graph.addVertex("chest");
+//@		graph.addVertex("christmas");
+//@		graph.addVertex("help");
+//@		graph.addVertex("page");
 		//#endif
 		
 		//#if ColoredGraph && !LabeledGraph 
-//@				ColoredVertex<Colors> v = (ColoredVertex<Colors>) graph.addVertex();
-//@				v.setColor(Colors.Black);
-//@				v = (ColoredVertex<Colors>) graph.addVertex();
-//@				v.setColor(Colors.Blue);
-//@				v = (ColoredVertex<Colors>) graph.addVertex();
-//@				v.setColor(Colors.Green);
-//@				v = (ColoredVertex<Colors>) graph.addVertex();
-//@				v.setColor(Colors.Brown);
-//@				v = (ColoredVertex<Colors>) graph.addVertex();
-//@				v.setColor(Colors.Yellow);
-//@				v = (ColoredVertex<Colors>) graph.addVertex();
-//@				v.setColor(Colors.Pink);
-//@				v = (ColoredVertex<Colors>) graph.addVertex();
-//@				v.setColor(Colors.Purple);
-//@				v = (ColoredVertex<Colors>) graph.addVertex();
-//@				v.setColor(Colors.Red);
+				graph.addVertex(Color.Black);
+				graph.addVertex(Color.Blue);
+				graph.addVertex(Color.Green);
+				graph.addVertex(Color.Brown);
+				graph.addVertex(Color.Yellow);
+				graph.addVertex(Color.Pink);
+				graph.addVertex(Color.Purple);
+				graph.addVertex(Color.Red);
 		//#endif
 		
 		//#if ColoredGraph && LabeledGraph 
-//@		ColoredLabeledVertex<Colors,String> v = (ColoredLabeledVertex<Colors,String>) graph.addVertex();
-//@		v.setLabel("cat");
-//@		v.setColor(Colors.Black);
-//@		v = (ColoredLabeledVertex<Colors,String>) graph.addVertex();
-//@		v.setLabel("test");
-//@		v.setColor(Colors.Blue);
-//@		v = (ColoredLabeledVertex<Colors,String>) graph.addVertex();
-//@		v.setLabel("tree");
-//@		v.setColor(Colors.Green);
-//@		v = (ColoredLabeledVertex<Colors,String>) graph.addVertex();
-//@		v.setLabel("book");
-//@		v.setColor(Colors.Brown);
-//@		v = (ColoredLabeledVertex<Colors,String>) graph.addVertex();
-//@		v.setLabel("chest");
-//@		v.setColor(Colors.Yellow);
-//@		v = (ColoredLabeledVertex<Colors,String>) graph.addVertex();
-//@		v.setLabel("christmas");
-//@		v.setColor(Colors.Pink);
-//@		v = (ColoredLabeledVertex<Colors,String>) graph.addVertex();
-//@		v.setLabel("help");
-//@		v.setColor(Colors.Purple);
-//@		v = (ColoredLabeledVertex<Colors,String>) graph.addVertex();
-//@		v.setLabel("page");
-//@		v.setColor(Colors.Red);
+//@		graph.addVertex(Color.Black, "cat");
+//@		graph.addVertex(Color.Blue, "test");
+//@		graph.addVertex(Color.Green, "tree");
+//@		graph.addVertex(Color.Brown, "book");
+//@		graph.addVertex(Color.Yellow, "chest");
+//@		graph.addVertex(Color.Pink, "christmas");
+//@		graph.addVertex(Color.Purple, "help");
+//@		graph.addVertex(Color.Red, "page");
 		//#endif
 				
 		//---------------------------------
 		//------------------------------------Create Edges
 		
+		//#if !WeightedGraph 
 		graph.addEdge(4, 1);
 		graph.addEdge(0, 2);
 		graph.addEdge(3, 2);
@@ -128,27 +75,18 @@ public class Main {
 		graph.addEdge(2, 4);
 		graph.addEdge(0, 5);
 		graph.addEdge(5, 7);
+		//#endif
 		
 	
 		//#if WeightedGraph
-		WeightedEdge edge = (WeightedEdge) graph.addEdge(4, 1);
-		edge.setWeight(3.14);
-		edge = (WeightedEdge) graph.addEdge(0, 2);
-		edge.setWeight(-1);
-		edge = (WeightedEdge) graph.addEdge(3, 2);
-		edge.setWeight(10.10);
-		edge = (WeightedEdge) graph.addEdge(3, 5);
-		edge.setWeight(7);
-		edge = (WeightedEdge) graph.addEdge(5, 6);
-		edge.setWeight(-10);
-		edge = (WeightedEdge) graph.addEdge(6, 4);
-		edge.setWeight(23);
-		edge = (WeightedEdge) graph.addEdge(2, 4);
-		edge.setWeight(4);
-		edge = (WeightedEdge) graph.addEdge(0, 5);
-		edge.setWeight(12);
-		edge = (WeightedEdge) graph.addEdge(5, 7);
-		edge.setWeight(15);
+//@		graph.addEdge(4, 1, 3.14);
+//@		graph.addEdge(0, 2, -1);
+//@		graph.addEdge(3, 2, 10.10);
+//@		graph.addEdge(3, 5, 7);
+//@		graph.addEdge(5, 6, -10);
+//@		graph.addEdge(6, 4, 23);
+//@		graph.addEdge(2, 4, 4);
+//@		graph.addEdge(0, 5, 12);
 		//#endif
 		
 
@@ -161,73 +99,40 @@ public class Main {
 		System.out.println("======DFS=====");
 		
 		
-		//#if UndirectedEdge 
-//@
-//@		System.out.print("DFS(0): ");
-//@		graph.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Undirected);
-//@		System.out.println("");
-//@
-//@		System.out.print("DFS(4): ");
-//@		graph.DFS(4, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Undirected);
-//@		System.out.println("");
-//@
-//@		System.out.print("DFS(7): ");
-//@		graph.DFS(7, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Undirected);
-//@		
-		//#endif 
 		
-		//#if DirectedEdge 
-		
+
 		System.out.print("DFS(0): ");
-		graph.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Directed);
+		graph.DFS(0, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
 		System.out.println("");
 
 		System.out.print("DFS(4): ");
-		graph.DFS(4, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Directed);
+		graph.DFS(4, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
 		System.out.println("");
 
 		System.out.print("DFS(7): ");
-		graph.DFS(7, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch, Graph.EdgeType.Directed);
-
-		//#endif
+		graph.DFS(7, Graph.DebugMode.On, Graph.SearchMode.DepthFirstSearch);
+		
+		
+	
 		
 		//-----------------------------------------
 		
 		//----------------------------------Perform MST
 		//#if MST 
-		System.out.println("");
-		System.out.println("");
-		System.out.println("======MST=====");
-		
-		//#if UndirectedEdge 
-//@		var mst = graph.getAMinimumSpanningTree(Graph.EdgeType.Undirected);
+//@		System.out.println("");
+//@		System.out.println("");
+//@		System.out.println("======MST=====");
+//@		var mst = graph.getAMinimumSpanningTree();
 //@		System.out.println(mst.getSumWeight());
 		//#endif
-		//#if DirectedEdge 
-		var mst = graph.getAMinimumSpanningTree(Graph.EdgeType.Directed);
-		System.out.println(mst.getSumWeight());
-		//#endif
-		//#endif
 		
-		//#if DefaultMatrix
-//@		System.out.println("");
-			//#if UndirectedEdge 
-//@			graph.getAdjMatr(EdgeType.Undirected, Matrix.Unweighted);
-			//#endif
-			//#if DirectedEdge 
-//@			graph.getAdjMatr(EdgeType.Directed, Matrix.Unweighted);
-			//#endif
+		//#if DefaultMatrix || WeightedMatrix 
+		System.out.println("");
+		System.out.println("");
+		System.out.println("======Matrix=====");
+			graph.getAdjMatr();
 		//#endif
-		
-		//#if WeightedMatrix 
-			System.out.println("");
-			//#if UndirectedEdge 
-//@			graph.getAdjMatr(EdgeType.Undirected,Matrix.Weighted);
-			//#endif
-			//#if DirectedEdge 
-			graph.getAdjMatr(EdgeType.Directed,Matrix.Weighted);
-			//#endif
-		//#endif
+			
 		
 
 	}
