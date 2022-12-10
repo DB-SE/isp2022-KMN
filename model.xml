@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showconstraints" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and abstract="true" mandatory="true" name="Base">
+			<and abstract="true" mandatory="true" name="AGraph">
+				<feature mandatory="true" name="BaseGraph"/>
+			</and>
+			<alt abstract="true" mandatory="true" name="IEdge">
+				<feature name="DirectedEdge"/>
+				<feature name="UndirectedEdge"/>
+			</alt>
+			<and abstract="true" mandatory="true" name="IVertex">
+				<feature mandatory="true" name="BaseVertex"/>
+			</and>
+			<and abstract="true" name="EdgeDecorator">
+				<feature name="WeightedEdge"/>
+			</and>
+			<and abstract="true" name="VertexDecorator">
+				<feature name="ColoredVertex"/>
+				<feature name="LabeledVertex"/>
+			</and>
+			<and abstract="true" name="IMST">
+				<feature name="MST"/>
+			</and>
+			<and abstract="true" name="IGraphSearch">
+				<feature name="DFS"/>
+				<feature name="BFS"/>
+			</and>
+		</and>
+	</struct>
+</featureModel>
