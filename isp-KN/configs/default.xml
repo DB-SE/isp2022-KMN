@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+	<feature automatic="selected" name="Base"/>
+	<feature automatic="selected" name="AGraph"/>
+	<feature automatic="selected" name="BaseGraph"/>
+	<feature automatic="selected" name="IEdge"/>
+	<feature manual="selected" name="DirectedEdge"/>
+	<feature automatic="unselected" name="UndirectedEdge"/>
+	<feature automatic="selected" name="IVertex"/>
+	<feature automatic="selected" name="BaseVertex"/>
+	<feature automatic="selected" name="EdgeDecorator"/>
+	<feature manual="selected" name="WeightedEdge"/>
+	<feature automatic="selected" name="VertexDecorator"/>
+	<feature manual="selected" name="ColoredVertex"/>
+	<feature manual="selected" name="LabeledVertex"/>
+	<feature name="IMST"/>
+	<feature name="MST"/>
+	<feature name="IGraphSearch"/>
+	<feature name="DFS"/>
+	<feature name="BFS"/>
+</configuration>
