@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <plugins>
-    <!--	<interface id="fullInterfaceName">-->
-    <!--		<class>fullClassName</class>-->
-    <!--	</interface>-->
+     	<interface id="interfaces.IMST">
+    		<class>MST</class>
+    	</interface>
 </plugins>

@@ -7,10 +7,6 @@ import supertypes.AGraph;
 
 public class BaseGraph extends AGraph {
 	
-	BaseGraph() {
-		// pass
-	}
-	
 	@Override
 	public void addEdge(IEdge edge) {
 		this.edges.add(edge);
@@ -28,15 +24,19 @@ public class BaseGraph extends AGraph {
 		
 		for (int i = 0; i < this.vertices.size(); i++) {
 			
-			IVertex origin = this.vertices.get(i);
-			List<IEdge> outgoingEdges = this.edges
-					.stream()
-					.filter(e -> e.getOriginVertex() == origin)
-					.collect(Collectors.toList());
-			
-			for (IEdge e : outgoingEdges) {
-				int targetIndex = this.vertices.indexOf(e.getTargetVertex());
-				matrix[i][targetIndex] = e.getValue();
+			for (int j = 0; j < this.vertices.size(); j++) {
+				
+				final int originIndex = i;
+				final int targetIndex = j;
+				
+				List<IEdge> filter = this.edges.stream()
+						.filter(e -> e.getOriginVertex() == this.vertices.get(originIndex) &&
+								e.getTargetVertex() == this.vertices.get(targetIndex))
+						.collect(Collectors.toList());
+				
+				if (filter.size() > 0) {
+					matrix[i][j] = filter.get(0).getValue();
+				}
 			}
 		}
 		

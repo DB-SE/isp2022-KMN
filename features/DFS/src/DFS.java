@@ -10,9 +10,9 @@ import supertypes.AGraph;
 
 public class DFS implements IGraphSearch {
 	
-	private final AGraph graph;
+	private AGraph graph;
 
-	public DFS(AGraph graph) {
+	public void setGraph(AGraph graph) {
 		this.graph = graph;
 	}
 	

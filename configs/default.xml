@@ -13,8 +13,8 @@
 	<feature automatic="selected" manual="selected" name="VertexDecorator"/>
 	<feature manual="selected" name="ColoredVertex"/>
 	<feature manual="selected" name="LabeledVertex"/>
-	<feature automatic="selected" manual="selected" name="IMST"/>
-	<feature manual="selected" name="MST"/>
+	<feature name="IMST"/>
+	<feature name="MST"/>
 	<feature automatic="selected" name="IGraphSearch"/>
 	<feature manual="selected" name="DFS"/>
 	<feature manual="selected" name="BFS"/>

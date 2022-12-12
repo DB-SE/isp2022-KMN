@@ -1,4 +1,5 @@
 package interfaces;
+import java.util.List;
 
 public interface IVertex {
 
@@ -7,4 +8,6 @@ public interface IVertex {
 	String getValue();
 	
 	void addDecorator(VertexDecorator decorator);
+	
+	public List<VertexDecorator> getDecorators();
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/BFS.jar"/>
+	<classpathentry kind="lib" path="lib/BaseGraph.jar"/>
+	<classpathentry kind="lib" path="lib/BaseVertex.jar"/>
+	<classpathentry kind="lib" path="lib/ColoredVertex.jar"/>
+	<classpathentry kind="lib" path="lib/DFS.jar"/>
+	<classpathentry kind="lib" path="lib/LabeledVertex.jar"/>
+	<classpathentry kind="lib" path="lib/UndirectedEdge.jar"/>
+	<classpathentry kind="lib" path="lib/WeightedEdge.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

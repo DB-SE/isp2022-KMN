@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Stack;
 import java.util.stream.Collectors;
 
 import interfaces.IEdge;
@@ -12,9 +11,9 @@ import supertypes.AGraph;
 
 public class BFS implements IGraphSearch {
 	
-	private final AGraph graph;
+	private AGraph graph;
 
-	public BFS(AGraph graph) {
+	public void setGraph(AGraph graph) {
 		this.graph = graph;
 	}
 	

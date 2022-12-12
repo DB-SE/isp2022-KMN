@@ -6,6 +6,8 @@ public interface IEdge {
 	
 	IVertex getTargetVertex();
 	
+	public void setEdge(IVertex origin, IVertex target);
+	
 	boolean allowsTwoWayTraversal();
 	
 	String toString();
