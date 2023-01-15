@@ -36,6 +36,10 @@
 				<feature name="DFS"/>
 				<feature name="BFS"/>
 			</and>
+			<and abstract="true" name="VIsualization">
+				<graphics key="collapsed" value="false"/>
+				<feature name="AdjacencyMatrix"/>
+			</and>
 		</and>
 	</struct>
 </featureModel>

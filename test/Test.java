@@ -9,7 +9,7 @@ public class Test {
 	
 	public static void testPrint() {
 		
-		AGraph g = setUpGraph();
+		Graph g = setUpGraph();
 		
 		for (Vertex v : g.getVertices()) {
 			System.out.println(v.getValue());
@@ -17,12 +17,12 @@ public class Test {
 	}
 	
 	public static void testAdjacency() {
-		
+		// uncomment if AdjacencyMatrix is enabled
 		setUpGraph().printAdjacencyMatrix();
 	}
 	
-	private static AGraph setUpGraph() {
-		AGraph graph = new Graph();
+	private static Graph setUpGraph() {
+		Graph graph = new Graph();
 		
 		// add vertices
 		for(int i=0; i<10; i++) {

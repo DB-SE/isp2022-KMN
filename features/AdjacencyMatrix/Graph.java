@@ -1,40 +1,11 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import java.util.List; import java.util.ArrayList; 
-import java.util.Arrays; 
-
-public   class  Graph {
+public class Graph {
 	
-	
-	protected final List<Vertex> vertices  = new ArrayList<Vertex>();
-
-	
-	protected final List<Edge> edges  = new ArrayList<Edge>();
-
-	
-	
-	public void addEdge(Edge edge) {
-		this.edges.add(edge);
-	}
-
-	
-
-	public void addVertex(Vertex vertex) {
-		this.vertices.add(vertex);
-	}
-
-	
-	
-	public List<Edge> getEdges() {
-		return this.edges;
-	}
-
-	
-	
-	public List<Vertex> getVertices() {
-		return this.vertices;
-	}
-
-	
+	private final List<Vertex> vertices = new ArrayList<Vertex>();
+	private final List<Edge> edges = new ArrayList<Edge>();
 	
 	public void printAdjacencyMatrix() {
 		
@@ -47,8 +18,6 @@ public   class  Graph {
 		
 		System.out.println(builder.toString());
 	}
-
-	
 	
 	private int[][] calculateAdjacencyMatrix() {
 
@@ -77,6 +46,4 @@ public   class  Graph {
 		
 		return matrix;
 	}
-
-
 }

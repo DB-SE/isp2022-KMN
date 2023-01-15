@@ -18,4 +18,6 @@
 	<feature automatic="selected" manual="selected" name="IGraphSearch"/>
 	<feature manual="selected" name="DFS"/>
 	<feature manual="selected" name="BFS"/>
+	<feature automatic="selected" name="VIsualization"/>
+	<feature manual="selected" name="AdjacencyMatrix"/>
 </configuration>

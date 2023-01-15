@@ -7,11 +7,11 @@ import java.util.Queue;
 public  class  BFS {
 	
 	
-	private AGraph graph;
+	private Graph graph;
 
 	
 
-	public void setGraph(AGraph graph) {
+	public void setGraph(Graph graph) {
 		this.graph = graph;
 	}
 
